@@ -7,7 +7,7 @@ uvicorn[standard]==0.30.6
 python-multipart==0.0.9          # required for file upload endpoints
 
 # ── Data validation ────────────────────────────────────────────────────────────
-pydantic[email]==2.8.2           # email validation for LeadFeatures
+pydantic[email]>=2.12            # email validation for LeadFeatures (>=2.12 for conda compat)
 
 # ── ML / numeric ──────────────────────────────────────────────────────────────
 numpy>=1.26.0

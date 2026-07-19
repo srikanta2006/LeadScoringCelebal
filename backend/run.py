@@ -14,13 +14,13 @@ import config as cfg
 
 if __name__ == "__main__":
     print(f"""
-╔══════════════════════════════════════════════════════╗
-║       X Education — Lead Scoring API  v{cfg.APP_VERSION}         ║
-╠══════════════════════════════════════════════════════╣
-║  Swagger UI  →  http://{cfg.HOST}:{cfg.PORT}/docs           ║
-║  ReDoc       →  http://{cfg.HOST}:{cfg.PORT}/redoc          ║
-║  Health      →  http://{cfg.HOST}:{cfg.PORT}/health         ║
-╚══════════════════════════════════════════════════════╝
+------------------------------------------------------
+       X Education — Lead Scoring API  v{cfg.APP_VERSION}         
+------------------------------------------------------
+  Swagger UI  ->  http://{cfg.HOST}:{cfg.PORT}/docs           
+  ReDoc       ->  http://{cfg.HOST}:{cfg.PORT}/redoc          
+  Health      ->  http://{cfg.HOST}:{cfg.PORT}/health         
+------------------------------------------------------
 """)
     uvicorn.run(
         "app:app",
