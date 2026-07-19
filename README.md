@@ -37,12 +37,7 @@ xed-lead-scoring/
 │   └── features/                       # Engineered features
 │
 ├── notebooks/                          # Jupyter notebooks (Phase 1-5)
-│   ├── 01_EDA.ipynb                    # Exploratory Data Analysis
-│   ├── 02_preprocessing.ipynb          # Data cleaning & feature engineering
-│   ├── 03_baseline_models.ipynb        # Model comparison & selection
-│   ├── 04_advanced_models.ipynb        # Hyperparameter tuning & ensemble
-│   ├── 05_test_evaluation.ipynb        # Final evaluation on test set
-│   └── 06_lead_scoring_rules.ipynb     # Tier definitions & business rules
+│   ├──LeadScoring.ipynb
 │
 ├── models/                             # ML model artifacts
 │   ├── optimized_model.pkl             # Trained model

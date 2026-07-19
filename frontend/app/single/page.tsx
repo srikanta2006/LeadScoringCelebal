@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { scoreLead, ScoreResponse } from "@/lib/api";
 import { Send, AlertCircle, CheckCircle2, Target } from "lucide-react";
 
@@ -9,7 +9,7 @@ export default function SingleScorePage() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ScoreResponse | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
