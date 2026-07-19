@@ -21,7 +21,7 @@ import logging
 from collections import defaultdict
 from datetime import datetime, timezone
 from io import BytesIO
-from typing import List
+from typing import Any, List
 
 import numpy as np
 import pandas as pd
@@ -318,15 +318,26 @@ async def upload_and_score(file: UploadFile = File(...)):
 
     scored_rows = []
     errors: list[str] = []
+    def parse_float(value: Any, default: float = 0.0) -> float:
+        if value is None:
+            return default
+        try:
+            number = float(value)
+        except (TypeError, ValueError):
+            return default
+        if np.isnan(number):
+            return default
+        return number
+
     for idx, row in df.iterrows():
         try:
             lead = LeadFeatures(
                 prospect_id=str(row.get("prospect id", "")) or None,
                 lead_origin=str(row.get("lead_origin", "")) or None,
                 lead_source=str(row.get("lead_source", "")) or None,
-                total_visits=float(row.get("total_visits", 0) or 0),
-                total_time_spent_on_website=float(row.get("total_time_spent_on_website", 0) or 0),
-                page_views_per_visit=float(row.get("page_views_per_visit", 0) or 0),
+                total_visits=parse_float(row.get("total_visits", 0), 0),
+                total_time_spent_on_website=parse_float(row.get("total_time_spent_on_website", 0), 0),
+                page_views_per_visit=parse_float(row.get("page_views_per_visit", 0), 0),
                 last_activity=str(row.get("last_activity", "")) or None,
                 last_notable_activity=str(row.get("last_notable_activity", "")) or None,
                 country=str(row.get("country", "India") or "India"),
@@ -341,8 +352,8 @@ async def upload_and_score(file: UploadFile = File(...)):
                 lead_profile=str(row.get("lead_profile", "")) or None,
                 asymmetrique_activity_index=str(row.get("asymmetrique_activity_index", "02.Medium") or "02.Medium"),
                 asymmetrique_profile_index=str(row.get("asymmetrique_profile_index", "02.Medium") or "02.Medium"),
-                asymmetrique_activity_score=float(row.get("asymmetrique_activity_score", 15) or 15),
-                asymmetrique_profile_score=float(row.get("asymmetrique_profile_score", 15) or 15),
+                asymmetrique_activity_score=parse_float(row.get("asymmetrique_activity_score", 15), 15),
+                asymmetrique_profile_score=parse_float(row.get("asymmetrique_profile_score", 15), 15),
                 a_free_copy_of_mastering_the_interview=str(row.get("a_free_copy_of_mastering_the_interview", "No") or "No"),
             )
             result = _score_single_lead(lead)

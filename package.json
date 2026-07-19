@@ -1,0 +1,9 @@
+{
+  "name": "lead-scoring",
+  "private": true,
+  "scripts": {
+    "frontend": "npm --prefix frontend run dev",
+    "backend": "python backend/run.py",
+    "dev": "node ./scripts/run-all.js"
+  }
+}
