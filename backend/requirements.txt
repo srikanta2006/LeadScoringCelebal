@@ -1,0 +1,20 @@
+# Lead Scoring API — Backend Dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Web framework ──────────────────────────────────────────────────────────────
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.9          # required for file upload endpoints
+
+# ── Data validation ────────────────────────────────────────────────────────────
+pydantic[email]==2.8.2           # email validation for LeadFeatures
+
+# ── ML / numeric ──────────────────────────────────────────────────────────────
+numpy>=1.26.0
+pandas>=2.1.0
+scikit-learn>=1.4.0
+xgboost>=2.0.0
+lightgbm>=4.3.0
+
+# ── Utilities ──────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1             # optional: load .env for HOST/PORT overrides

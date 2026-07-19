@@ -1,0 +1,2 @@
+# This directory stores timestamped CSV results from /api/score/upload
+# Files are named: scored_leads_YYYYMMDD_HHMMSS.csv
