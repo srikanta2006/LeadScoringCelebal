@@ -29,8 +29,12 @@ export default function SingleScorePage() {
     try {
       const res = await scoreLead(payload);
       setResult(res);
-    } catch (err: any) {
-      setError(err.message || "Failed to score lead");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to score lead");
+      } else {
+        setError("Failed to score lead");
+      }
     } finally {
       setLoading(false);
     }
@@ -38,11 +42,14 @@ export default function SingleScorePage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
-      <header>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-          Score a Single Lead
-        </h1>
-        <p className="text-slate-400 mt-1">Enter lead details to get an instant ML-powered score.</p>
+      <header className="space-y-4">
+        <div className="inline-flex items-center gap-2 rounded-full bg-slate-800/70 px-4 py-2 text-xs uppercase tracking-[0.24em] text-slate-300 shadow-sm shadow-slate-950/20">
+          Lead Intelligence
+        </div>
+        <div>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white">Score a single lead</h1>
+          <p className="text-slate-400 mt-3 max-w-3xl text-lg leading-8">Enter lead details to receive a refined score, tier classification, and recommended next action.</p>
+        </div>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -202,7 +209,7 @@ export default function SingleScorePage() {
               <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
                 <Target size={24} className="text-slate-400" />
               </div>
-              <p>Submit the form to see the AI-generated lead score and recommendations.</p>
+              <p>Submit the form to see the lead score and recommended action.</p>
             </div>
           )}
         </div>

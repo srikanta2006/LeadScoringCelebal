@@ -31,11 +31,14 @@ export default async function Home() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <header>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-          Dashboard Overview
-        </h1>
-        <p className="text-slate-400 mt-1">Real-time metrics from your Lead Scoring ML Pipeline.</p>
+      <header className="space-y-4">
+        <div className="inline-flex items-center gap-2 rounded-full bg-slate-800/70 px-4 py-2 text-xs uppercase tracking-[0.24em] text-slate-300 shadow-sm shadow-slate-950/20">
+          Lead Intelligence
+        </div>
+        <div>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white">Performance dashboard</h1>
+          <p className="text-slate-400 mt-3 max-w-3xl text-lg leading-8">Monitor scoring velocity, tier distribution, and source performance from a premium sales operations view.</p>
+        </div>
       </header>
 
       {/* KPI Cards */}

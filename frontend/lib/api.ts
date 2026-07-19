@@ -3,13 +3,25 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 export interface ScoreResponse {
   prospect_id?: string;
   score: number;
-  tier: 'Hot' | 'Warm' | 'Cold' | 'Ignore';
+  tier: 'Hot' | 'Warm' | 'Cold' | 'Frozen' | 'Ignore';
   probability: number;
   confidence?: number;
   recommended_action: string;
   predicted_at: string;
   model_mode: string;
+  lead_source?: string;
+  country?: string;
+  city?: string;
+  specialization?: string;
   [key: string]: any;
+}
+
+export interface BatchUploadResponse {
+  message: string;
+  total_leads: number;
+  scored_successfully: number;
+  errors: string[];
+  results: ScoreResponse[];
 }
 
 export interface AnalyticsSummary {
@@ -71,7 +83,7 @@ export async function getAnalytics(): Promise<AnalyticsSummary> {
 /**
  * Upload CSV for batch scoring
  */
-export async function uploadBatchCsv(file: File) {
+export async function uploadBatchCsv(file: File): Promise<BatchUploadResponse> {
   const formData = new FormData();
   formData.append('file', file);
   

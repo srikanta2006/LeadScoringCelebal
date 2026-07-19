@@ -235,7 +235,7 @@ async def score_batch(request: BatchLeadScoreRequest):
 async def upload_and_score(file: UploadFile = File(...)):
     """
     Upload a CSV whose columns match the `LeadFeatures` schema.
-    Returns scored results and saves a timestamped CSV to `outputs/`.
+    Returns scored results directly in the response.
 
     **Required CSV columns:**
     `email, name, company, industry, country, page_views, time_spent_minutes,
@@ -351,19 +351,11 @@ async def upload_and_score(file: UploadFile = File(...)):
         except Exception as exc:
             errors.append(f"Row {idx}: {exc}")
 
-    # Save results to outputs/
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    out_path = cfg.OUTPUTS_DIR / f"scored_leads_{ts}.csv"
-    results_df = pd.DataFrame(scored_rows)
-    results_df.to_csv(out_path, index=False)
-    logger.info("Batch results saved → %s", out_path)
-
     return {
         "message": "Batch scoring completed.",
         "total_leads": len(df),
         "scored_successfully": len(scored_rows),
-        "errors": errors[:20],   # cap error list for readability
-        "output_file": str(out_path),
+        "errors": errors[:20],
         "results": scored_rows,
     }
 
